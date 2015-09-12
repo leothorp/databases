@@ -21,6 +21,14 @@ app.use(parser.json());
 // Set up our routes
 app.use("/classes", router);
 
+
+
+
+
+//callback passed to post is going to be the post function in ./controllers/index.js corresponding 
+//to the table we want to post to
+
+
 // Serve the client files
 app.use(express.static(__dirname + "/../client"));
 
