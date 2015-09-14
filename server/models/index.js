@@ -21,7 +21,9 @@ module.exports = {
 
   users: {
     // Ditto as above.
-    get: function () {},
+    get: function (callback) {
+      db.queryDatabase('SELECT * FROM users;', [], callback);
+    },
     post: function (username, callback) {
       db.queryDatabase('INSERT into users (username) VALUES("'+ username +'");', [], callback);
     }

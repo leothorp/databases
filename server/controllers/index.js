@@ -24,13 +24,18 @@ module.exports = {
   },
   users: {
     // Ditto as above
-    get: function (req, res) {},
+    get: function (req, res) {
+      var callback = function(result) {
+        res.send(result);
+      };
+      models.users.get(callback);
+
+    },
     post: function (req, res) {
       console.log(req.body.username);
-      //var username = req.username;
       var callback = function(result) {
         res.send('User added to database with ID: ' + result.id);
-      }  
+      };  
       models.users.post(req.body.username, callback);
 
     }
