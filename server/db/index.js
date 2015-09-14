@@ -5,14 +5,14 @@ var mysql = require('mysql');
 // and to the database "chat"
 var queryDatabase = function(queryString, queryArgs, callback) {
   var connection = mysql.createConnection({
-    user: "root",
-    password: "mysqlpw",
+    user: "",
+    password: "",
     database: "chat"
   });
   connection.connect();
   connection.query(queryString, queryArgs, function(err, results) {
     if (err) {
-      throw err;
+      console.log(err);
     } else {
       console.log('successful query!');
       callback(results);

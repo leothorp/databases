@@ -10,8 +10,8 @@ describe("Persistent Node Chat Server", function() {
 
   beforeEach(function(done) {
     dbConnection = mysql.createConnection({
-      user: "root",
-      password: "mysqlpw",
+      user: "",
+      password: "",
       database: "chat"
     });
     dbConnection.connect();
@@ -41,7 +41,7 @@ describe("Persistent Node Chat Server", function() {
               uri: "http://127.0.0.1:3000/classes/messages",
               json: {
                 username: "Valjean",
-                message: "In mercy's name, three days is all I need.",
+                text: "In mercy's name, three days is all I need.",
                 roomname: "Hello"
               }
       }, function () {
@@ -58,7 +58,7 @@ describe("Persistent Node Chat Server", function() {
           expect(results.length).to.equal(1);
 
           // TODO: If you don't have a column named text, change this test.
-          expect(results[0].messageText).to.equal("In mercy's name, three days is all I need.");
+          expect(results[0].text).to.equal("In mercy's name, three days is all I need.");
 
           done();
         });
@@ -71,7 +71,7 @@ describe("Persistent Node Chat Server", function() {
        var text = 'Men like you can never change!';
        var room = 'main';
        var id = 7;
-       var queryString = 'INSERT INTO messages (messageText, userId, roomName) VALUES("' + text 
+       var queryString = 'INSERT INTO messages (text, userId, roomname) VALUES("' + text 
      + '",' + 7 + ',"' + room + '");';
        var queryArgs = [];
     // TODO - The exact query string and query args to use
@@ -85,8 +85,8 @@ describe("Persistent Node Chat Server", function() {
       // the message we just inserted:
       request("http://127.0.0.1:3000/classes/messages", function(error, response, body) {
         var messageLog = JSON.parse(body);
-        expect(messageLog[0].messageText).to.equal("Men like you can never change!");
-        expect(messageLog[0].roomName).to.equal("main");
+        expect(messageLog.results[0].text).to.equal("Men like you can never change!");
+        expect(messageLog.results[0].roomname).to.equal("main");
         done();
       });
     });
